@@ -1,0 +1,10 @@
+class ConfigService {
+  // Replace with your OpenAI API key
+  // In production, store this securely (e.g., environment variables, secure storage)
+  static const String openAIApiKey = 'YOUR_OPENAI_API_KEY_HERE';
+  
+  static String getOpenAIApiKey() {
+    return openAIApiKey;
+  }
+}
+
