@@ -1,0 +1,17 @@
+server:
+  port: 5000
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: 500MB
+      max-request-size: 500MB
+
+app:
+  upload:
+    dir: uploads
+
+openai:
+  api:
+    key: ${OPENAI_API_KEY:}
+
