@@ -9,10 +9,15 @@ A Flutter app for uploading study videos.
 flutter pub get
 ```
 
-2. Update the upload endpoint in `lib/services/video_service.dart`:
+2. **Configure API Keys:**
+   - Create a `.env` file in the root directory (copy from `.env.example` if it exists)
+   - Add your OpenAI API key: `OPENAI_API_KEY=your_actual_api_key_here`
+   - **Important:** The `.env` file is in `.gitignore` and will never be committed. Never commit actual API keys.
+
+3. (Optional) Update the upload endpoint in `lib/services/video_service.dart`:
    - Replace `YOUR_UPLOAD_ENDPOINT_HERE` with your actual backend URL
 
-3. Run the app:
+4. Run the app:
 ```bash
 flutter run
 ```
