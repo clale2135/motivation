@@ -22,14 +22,17 @@ class _VideoUploadScreenState extends State<VideoUploadScreen> {
   int? _productivityScore;
   final VideoService _videoService = VideoService();
   final PermissionService _permissionService = PermissionService();
-  late final VideoAnalysisService _analysisService;
+  VideoAnalysisService? _analysisService;
 
   @override
   void initState() {
     super.initState();
     _checkPermissions();
-    final openAIService = OpenAIService(apiKey: ConfigService.getOpenAIApiKey());
-    _analysisService = VideoAnalysisService(openAIService: openAIService);
+    final apiKey = ConfigService.getOpenAIApiKey();
+    if (apiKey != null) {
+      final openAIService = OpenAIService(apiKey: apiKey);
+      _analysisService = VideoAnalysisService(openAIService: openAIService);
+    }
   }
 
   Future<void> _checkPermissions() async {
@@ -47,12 +50,24 @@ class _VideoUploadScreenState extends State<VideoUploadScreen> {
   }
 
   Future<void> _analyzeVideo(String videoPath) async {
+    if (_analysisService == null) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('OpenAI API key not configured. Video analysis is disabled.'),
+            backgroundColor: Colors.orange,
+          ),
+        );
+      }
+      return;
+    }
+    
     setState(() {
       _isAnalyzing = true;
     });
 
     try {
-      final score = await _analysisService.analyzeVideoProductivity(videoPath);
+      final score = await _analysisService!.analyzeVideoProductivity(videoPath);
       if (mounted) {
         setState(() {
           _productivityScore = score;

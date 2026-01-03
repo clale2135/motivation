@@ -47,4 +47,6 @@ app.*.map.json
 
 # API Keys and secrets
 lib/services/config_service.dart
+.env
+.env.local
 

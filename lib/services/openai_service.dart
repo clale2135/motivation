@@ -58,12 +58,17 @@ Do not include any other text or explanation, just the JSON.'''
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
         final contentText = data['choices'][0]['message']['content'];
+        print('OpenAI response: $contentText');
         
         // Extract JSON from response
         final jsonMatch = RegExp(r'\{[^}]*"productivity_score"[^}]*\}').firstMatch(contentText);
         if (jsonMatch != null) {
           final jsonData = jsonDecode(jsonMatch.group(0)!);
-          return jsonData['productivity_score'] as int?;
+          final score = jsonData['productivity_score'] as int?;
+          print('Extracted productivity score: $score');
+          return score;
+        } else {
+          print('Could not extract productivity_score from response');
         }
       } else {
         print('OpenAI API error: ${response.statusCode} - ${response.body}');
