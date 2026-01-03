@@ -45,8 +45,13 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
+<<<<<<< HEAD
 # API Keys and secrets
 lib/services/config_service.dart
 .env
 .env.local
+=======
+# Environment variables
+.env
+>>>>>>> e8622f12ddbabc3904ae8805b0b26bc9eb85788c
 
